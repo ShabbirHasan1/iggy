@@ -27,6 +27,7 @@ pub fn from_records(
                 total_user_data_bytes: 0,
                 total_bytes: 0,
                 total_messages: 0,
+                total_message_batches: None,
                 throughput_megabytes_per_second: 0.0,
                 throughput_messages_per_second: 0.0,
                 p50_latency_ms: 0.0,
@@ -49,9 +50,10 @@ pub fn from_records(
     let total_user_data_bytes: u64 = records.iter().last().unwrap().user_data_bytes;
     let total_bytes: u64 = records.iter().last().unwrap().total_bytes;
     let total_messages: u64 = records.iter().last().unwrap().messages;
+    let total_message_batches = Some(records.iter().last().unwrap().message_batches);
 
     let throughput_megabytes_per_second = if total_time_secs > 0.0 {
-        (total_bytes as f64) / 1_000_000.0 / total_time_secs
+        (total_user_data_bytes as f64) / 1_000_000.0 / total_time_secs
     } else {
         0.0
     };
@@ -104,6 +106,7 @@ pub fn from_records(
             total_user_data_bytes,
             total_bytes,
             total_messages,
+            total_message_batches,
             throughput_megabytes_per_second,
             throughput_messages_per_second,
             p50_latency_ms,

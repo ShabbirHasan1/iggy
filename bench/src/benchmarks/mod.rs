@@ -1,4 +1,5 @@
 pub mod benchmark;
+pub mod common;
 pub mod consumer_benchmark;
 pub mod consumer_group_benchmark;
 pub mod producer_and_consumer_benchmark;

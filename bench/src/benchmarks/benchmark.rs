@@ -56,7 +56,7 @@ impl From<IggyBenchArgs> for Box<dyn Benchmarkable> {
             BenchmarkKindCommand::EndToEndProducingConsumerGroup(_) => Box::new(
                 EndToEndProducingConsumerGroupBenchmark::new(Arc::new(args), client_factory),
             ),
-            _ => todo!(),
+            BenchmarkKindCommand::Examples => unreachable!(),
         }
     }
 }
@@ -131,13 +131,5 @@ pub trait Benchmarkable {
             }
         }
         Ok(())
-    }
-
-    /// Returns the total number of messages that will be sent or polled by the benchmark.
-    fn total_messages(&self) -> u64 {
-        let messages_per_batch = self.args().messages_per_batch();
-        let message_batches = self.args().message_batches();
-        let streams = self.args().streams();
-        (messages_per_batch * message_batches * streams) as u64
     }
 }
