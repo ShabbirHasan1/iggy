@@ -249,6 +249,8 @@ impl Segment {
     }
 
     pub async fn is_expired(&self, now: IggyTimestamp) -> bool {
+        //TODO: Fix me
+        /*
         if !self.is_closed {
             return false;
         }
@@ -272,6 +274,8 @@ impl Segment {
                 last_message_timestamp + expiry.as_micros() <= now.as_micros()
             }
         }
+        */
+        todo!()
     }
 
     pub async fn shutdown_reading(&mut self) {

@@ -9,7 +9,7 @@ use crate::models::header::{HeaderKey, HeaderValue};
 use crate::utils::byte_size::IggyByteSize;
 use crate::utils::sizeable::Sizeable;
 use crate::validatable::Validatable;
-use bytes::{Buf, BufMut, Bytes, BytesMut};
+use bytes::{BufMut, Bytes, BytesMut};
 use serde::{Deserialize, Serialize};
 use serde_with::base64::Base64;
 use serde_with::serde_as;
@@ -27,6 +27,8 @@ const EMPTY_KEY_VALUE: Vec<u8> = vec![];
 /// - `topic_id` - unique topic ID (numeric or name).
 /// - `partitioning` - to which partition the messages should be sent - either provided by the client or calculated by the server.
 /// - `messages` - collection of messages to be sent.
+// TODO: Fix me, this struct should have `batch` containing IggyBatch instead of `messages` field
+// so it's compatible with the server side deserialization
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct SendMessages {
     /// Unique stream ID (numeric or name).
